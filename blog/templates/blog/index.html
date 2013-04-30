@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shekhar's Blog</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}" />
+    </head>
+    <body>
+        <div class="header">
+            <h1>#Shekhar's Blog</h1>
+            <h2>"""A blog about programming, gaming and more"""</h2>
+        </div>
+        <div class="left">
+            <ul>
+                <li><strong>Home</strong></li>
+                <li><strong>About</strong></li>
+                <li><strong>Archive</strong></li>
+                <li><strong>Projects</strong></li>
+            </ul>
+        </div>
+        <div class="right">
+            <ul>
+            {% if latest_articles %}
+                {% for article in latest_articles%}
+                    <li>
+                        <h3>{{article.title}}</h3>
+                        <h4>{{article.date|date:"D d M Y"}}</h4>
+                        <p>{{article.contents|slice:":200"}}<span>..Read More</span></p>
+                    </li>
+                {% endfor %}
+            {% endif %}
+            </ul>
+        </div>
+        <div class="footer">
+            <ul>
+                <li><a href="https://www.facebook.com/shekhar.patnaik.5"><img src="{% static 'blog/images/facebook.png' %}"/></a></li>
+                <li><a href="http://github.com/patnaikshekhar"><img src="{% static 'blog/images/github.png' %}"/></a></li>
+                <li><a href="http://www.linkedin.com/in/patnaikshekhar"><img src="{% static 'blog/images/linkedin.png' %}"/></a></li>
+            </ul>
+        </div>
+    </body>
+</html>
