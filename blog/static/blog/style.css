@@ -23,34 +23,18 @@ body {
 }
 
 .left li {
-    color: white;
     list-style-type: none;
     margin: 25px;
+}
+
+.left a {
+    color: white;
+    text-decoration: none;
 }
 
 .right {
     margin-left: 220px;
     height: 400px;    
-}
-
-.right li {
-    list-style-type: none;
-}
-
-.right li h3 {
-    color: #000066;
-}
-
-.right li h4 {
-    font-size: 10px;
-}
-
-.right li p {
-    font-size: 12px;
-}
-
-.right li p span {
-    font-size: 10px;
 }
 
 .footer {
@@ -71,4 +55,8 @@ body {
     padding-top: 10px;
     height: 50px;
     width: 50px;
+}
+
+#selectedPage {
+    color: #0066FF;
 }

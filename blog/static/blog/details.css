@@ -1,0 +1,19 @@
+.right {
+    list-style-type: none;
+}
+
+.right h3 {
+    color: #000066;
+}
+
+.right h4 {
+    font-size: 10px;
+}
+
+.right p {
+    font-size: 14px;
+}
+
+.footer {
+    display: none;
+}

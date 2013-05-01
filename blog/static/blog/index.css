@@ -1,0 +1,19 @@
+.right li {
+    list-style-type: none;
+}
+
+.right li h3 {
+    color: #000066;
+}
+
+.right li h4 {
+    font-size: 10px;
+}
+
+.right li p {
+    font-size: 12px;
+}
+
+.right li p span {
+    font-size: 10px;
+}
