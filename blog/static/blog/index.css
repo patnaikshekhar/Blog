@@ -17,3 +17,7 @@
 .right li p span {
     font-size: 10px;
 }
+
+.right li a {
+    text-decoration: none;
+}

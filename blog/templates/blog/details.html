@@ -20,11 +20,28 @@
             </ul>
         </div>
         <div class="right">
-            {% if article %}
-                <h3>{{article.title}}</h3>
-                <h4>{{article.date|date:"D d M Y"}}</h4>
-                <p>{{article.contents}}</p>
-            {% endif %}
+            <form method="post" action="{% url 'add_comment' article.id %}">
+                {% csrf_token %}
+                {% if article %}
+                    <div class="article">
+                        <h3>{{article.title}}</h3>
+                        <h4>{{article.date|date:"D d M Y"}}</h4>
+                        <p>{{article.contents}}</p>
+                    </div>
+                    <h5>Comments</h5>
+                    <div class="addComment">
+                        <p><textarea name="comment" placeholder="Comment on the post"></textarea></p>
+                        <p><input type="text" name="name" placeholder="Your name"/></p>
+                        <input type="submit" value="Comment"/><br/><br/>
+                    </div>
+                    {% for comment in comments %}
+                        <div class="commentBlock">
+                                <p class="comment">{{ comment.comment }}</p>
+                                <p class="commentBy">on {{ comment.date|date:"D d M Y" }} by {{ comment.name }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </form>
         </div>
         <div class="footer">
             <ul>

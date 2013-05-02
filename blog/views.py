@@ -1,4 +1,7 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from blog.models import Article, Comments
 
@@ -18,5 +21,26 @@ including the comments
 """
 def detail(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
-    return render(request, 'blog/details.html', {'article': article})
+    comments = article.comments_set.all().order_by('-date')
+    return render(request, 'blog/details.html', {'article': article, 'comments': comments})
 
+
+"""
+This view handles the addition of a comment. Once a
+comment has been added to the database it redirects
+back to the blog details page
+"""
+def addComment(request, article_id):
+    if request.POST['comment'] != "":
+        article = get_object_or_404(Article, pk=article_id)
+        comment = Comments()
+        comment.article = article
+        if request.POST['name'] != "":
+            comment.name = request.POST['name']
+        else:
+            comment.name = 'Unknown'
+        comment.comment = request.POST['comment']
+        comment.date = timezone.now()
+        comment.save()
+
+    return HttpResponseRedirect(reverse('detail', args=(article.id,)))

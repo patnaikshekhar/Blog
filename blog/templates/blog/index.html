@@ -24,7 +24,7 @@
             {% if latest_articles %}
                 {% for article in latest_articles%}
                     <li>
-                        <h3>{{article.title}}</h3>
+                        <a href="{% url 'detail' article.id %}"><h3>{{article.title}}</h3></a>
                         <h4>{{article.date|date:"D d M Y"}}</h4>
                         <p>{{article.contents|slice:":200"}}<span>..<a href="{% url 'detail' article.id %}">Read More</a></span></p>
                     </li>
