@@ -15,7 +15,7 @@
             <ul>
                 <li><a href="{% url 'index' %}"><strong>Home</strong></a></li>
                 <li><a href="#"><strong>About</strong></a></li>
-                <li><a href="#"><strong>Archive</strong></a></li>
+                <li><a href="{% url 'archive' %}"><strong>Archive</strong></a></li>
                 <li><a href="#"><strong>Projects</strong></a></li>
             </ul>
         </div>
@@ -24,9 +24,9 @@
                 {% csrf_token %}
                 {% if article %}
                     <div class="article">
-                        <h3>{{article.title}}</h3>
+                        <h3>{{article.title|safe}}</h3>
                         <h4>{{article.date|date:"D d M Y"}}</h4>
-                        <p>{{article.contents}}</p>
+                        <p>{{article.contents|safe}}</p>
                     </div>
                     <h5>Comments</h5>
                     <div class="addComment">
@@ -36,8 +36,8 @@
                     </div>
                     {% for comment in comments %}
                         <div class="commentBlock">
-                                <p class="comment">{{ comment.comment }}</p>
-                                <p class="commentBy">on {{ comment.date|date:"D d M Y" }} by {{ comment.name }}</p>
+                            <p class="comment">{{ comment.comment }}</p>
+                            <p class="commentBy">on {{ comment.date|date:"D d M Y" }} by {{ comment.name }}</p>
                         </div>
                     {% endfor %}
                 {% endif %}

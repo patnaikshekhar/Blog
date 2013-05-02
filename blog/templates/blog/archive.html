@@ -3,8 +3,16 @@
 <html>
     <head>
         <title>Shekhar's Blog</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'blog/index.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'blog/archive.css' %}" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script>
+            $(function() {
+                $( "#archive" ).accordion();
+            });
+        </script>
     </head>
     <body>
         <div class="header">
@@ -13,25 +21,23 @@
         </div>
         <div class="left">
             <ul>
-                <li><a href="#"><strong id="selectedPage">Home</strong></a></li>
+                <li><a href="{% url 'index' %}"><strong>Home</strong></a></li>
                 <li><a href="#"><strong>About</strong></a></li>
-                <li><a href="{% url 'archive' %}"><strong>Archive</strong></a></li>
+                <li><a href="#"><strong id="selectedPage">Archive</strong></a></li>
                 <li><a href="#"><strong>Projects</strong></a></li>
             </ul>
         </div>
         <div class="right">
-            <ul>
-            {% if latest_articles %}
-                {% for article in latest_articles%}
-                    <li>
-                        <a href="{% url 'detail' article.id %}"><h3>{{article.title}}</h3></a>
-                        <h4>{{article.date|date:"D d M Y"}}</h4>
-                        <p>{{article.contents|slice:":200"}}<span>..<a href="{% url 'detail' article.id %}">Read More</a></span></p>
-                    </li>
+            <div id="archive">
+                {% for archiveItem in archive.items %}
+                    <h3>{{ archiveItem.display }}</h3>
+                    <div class="articles">
+                        {% for article in archiveItem.articles %}
+                            <p><a href="{% url 'detail' article.id %}">{{ article.title }}</a></p>
+                        {% endfor %}
+                    </div>
                 {% endfor %}
-            {% endif %}
-            </ul>
-        </div>
+            </div>
         <div class="footer">
             <ul>
                 <li><a href="https://www.facebook.com/shekhar.patnaik.5"><img src="{% static 'blog/images/facebook.png' %}"/></a></li>

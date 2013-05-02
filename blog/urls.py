@@ -6,4 +6,5 @@ urlpatterns = patterns('',
         url(r'^home/', views.index, name='index'),
         url(r'^(?P<article_id>\d+)/$', views.detail, name='detail'),
         url(r'^(?P<article_id>\d+)/addComment/$', views.addComment, name='add_comment'),
+        url(r'^archive/', views.archive, name='archive'),
 )

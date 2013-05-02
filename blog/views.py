@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 from blog.models import Article, Comments
-
+from blog.helperclasses import Archive
 
 """
 The homepage view is rendered here
@@ -44,3 +44,16 @@ def addComment(request, article_id):
         comment.save()
 
     return HttpResponseRedirect(reverse('detail', args=(article.id,)))
+
+
+"""
+This view has been created to handle the archive page.
+The input to the view is created by looking for a valid
+year month combination and sending along the article ids
+"""
+def archive(request):
+    archive = Archive()
+    for article in Article.objects.all():
+        archive.add(article)
+    archive.sort()
+    return render(request, 'blog/archive.html' , {'archive': archive})
