@@ -3,16 +3,8 @@
 <html>
     <head>
         <title>Shekhar's Blog</title>
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'blog/archive.css' %}" />
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-        <script>
-            $(function() {
-                $( "#archive" ).accordion();
-            });
-        </script>
+        <link rel="stylesheet" type="text/css" href="{% static 'blog/projects.css' %}" />
     </head>
     <body>
         <div class="header">
@@ -23,21 +15,23 @@
             <ul>
                 <li><a href="{% url 'index' %}"><strong>Home</strong></a></li>
                 <li><a href="{% url 'about' %}"><strong>About</strong></a></li>
-                <li><a href="#"><strong id="selectedPage">Archive</strong></a></li>
-                <li><a href="{% url 'projects' %}"><strong>Projects</strong></a></li>
+                <li><a href="{% url 'archive' %}"><strong>Archive</strong></a></li>
+                <li><a href="#"><strong id="selectedPage">Projects</strong></a></li>
             </ul>
         </div>
         <div class="right">
-            <div id="archive">
-                {% for archiveItem in archive.items %}
-                    <h3>{{ archiveItem.display }}</h3>
-                    <div class="articles">
-                        {% for article in archiveItem.articles %}
-                            <p><a href="{% url 'detail' article.id %}">{{ article.title }}</a></p>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>
+            <h1>Projects</h1>
+            <p>These are some of the projects i've been working on.</p>
+            {% for project in projects %}
+                <br/><hr/>
+                <div class="project">
+                    <h2>{{ project.name }}</h2>
+                    <h6>Started on {{ project.start_date }} and is currently {{ project.status }}</h6>
+                    <p>{{ project.description }}</p>
+                    <h5>Git Hub : <a href="{{ project.git_hub_link }}">{{ project.git_hub_link }}</a></p>
+                </div>
+            {% endfor %}
+        </div>
         <div class="footer">
             <ul>
                 <li><a href="https://www.facebook.com/shekhar.patnaik.5"><img src="{% static 'blog/images/facebook.png' %}"/></a></li>

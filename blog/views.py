@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from blog.models import Article, Comments
+from blog.models import Article, Comments, Project
 from blog.helperclasses import Archive
 
 """
@@ -57,3 +57,15 @@ def archive(request):
         archive.add(article)
     archive.sort()
     return render(request, 'blog/archive.html' , {'archive': archive})
+
+"""
+    The projects view is rendered using this function
+"""
+def projects(request):
+    return render(request, 'blog/projects.html', {'projects': Project.objects.all()})
+
+"""
+    This view renders a dummy about page
+"""
+def about(request):
+    return render(request, 'blog/about.html')

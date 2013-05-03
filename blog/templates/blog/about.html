@@ -3,16 +3,8 @@
 <html>
     <head>
         <title>Shekhar's Blog</title>
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'blog/archive.css' %}" />
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-        <script>
-            $(function() {
-                $( "#archive" ).accordion();
-            });
-        </script>
+        <link rel="stylesheet" type="text/css" href="{% static 'blog/about.css' %}" />
     </head>
     <body>
         <div class="header">
@@ -22,22 +14,13 @@
         <div class="left">
             <ul>
                 <li><a href="{% url 'index' %}"><strong>Home</strong></a></li>
-                <li><a href="{% url 'about' %}"><strong>About</strong></a></li>
-                <li><a href="#"><strong id="selectedPage">Archive</strong></a></li>
+                <li><a href="#"><strong id="selectedPage">About</strong></a></li>
+                <li><a href="{% url 'archive' %}"><strong>Archive</strong></a></li>
                 <li><a href="{% url 'projects' %}"><strong>Projects</strong></a></li>
             </ul>
         </div>
         <div class="right">
-            <div id="archive">
-                {% for archiveItem in archive.items %}
-                    <h3>{{ archiveItem.display }}</h3>
-                    <div class="articles">
-                        {% for article in archiveItem.articles %}
-                            <p><a href="{% url 'detail' article.id %}">{{ article.title }}</a></p>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>
+        </div>
         <div class="footer">
             <ul>
                 <li><a href="https://www.facebook.com/shekhar.patnaik.5"><img src="{% static 'blog/images/facebook.png' %}"/></a></li>

@@ -7,4 +7,6 @@ urlpatterns = patterns('',
         url(r'^(?P<article_id>\d+)/$', views.detail, name='detail'),
         url(r'^(?P<article_id>\d+)/addComment/$', views.addComment, name='add_comment'),
         url(r'^archive/', views.archive, name='archive'),
+        url(r'^projects/', views.projects, name='projects'),
+        url(r'^about/', views.about, name='about'),
 )
