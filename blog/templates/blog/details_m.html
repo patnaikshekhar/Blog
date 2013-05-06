@@ -11,32 +11,43 @@
     </head>
     <body>
         <div data-role="page" data-fullscreen=true>
-            <div class="header" data-role="header" data-position="fixed" data-fullscreen="true">
+            <div class="header" data-role="header" data-position="fixed">
                 <h1>#Shekhar's Blog</h1>
                 <a href="#menu_panel" data-role="button" data-icon="gear">Menu</a>
             </div>
             <div class="left" data-role="panel" id="menu_panel" data-theme="a" >
                 <ul data-role="listview" data-inset="true">
-                    <li data-theme="a"><a href="#"><strong>Home</strong></a></li>
+                    <li><a href="{% url 'index' %}"><strong>Home</strong></a></li>
                     <li><a href="{% url 'about' %}"><strong>About</strong></a></li>
                     <li><a href="{% url 'archive' %}"><strong>Archive</strong></a></li>
                     <li><a href="{% url 'projects' %}"><strong>Projects</strong></a></li>
                 </ul>
             </div>
             <div class="right" data-role="content">
-                <ul data-role="listview">
-                {% if latest_articles %}
-                    {% for article in latest_articles%}
-                        <li>
-                            <a href="{% url 'detail' article.id %}">
-                                <h2>{{article.title}}</h2>
-                                <p class="ui-li-aside">{{article.date|date:"D d M Y"}}</p>
-                                <p>{{article.contents|slice:":200"}}<p>
-                            </a>
-                        </li>
-                    {% endfor %}
-                {% endif %}
-                </ul>
+                <form method="post" action="{% url 'add_comment' article.id %}">
+                    {% csrf_token %}
+                    {% if article %}
+                        <div class="article">
+                            <h3>{{article.title|safe}}</h3>
+                            <h4>{{article.date|date:"D d M Y"}}</h4>
+                            <p>{{article.contents|safe}}</p>
+                        </div>
+                        <h5>Comments</h5>
+                        <div class="addComment">
+                            <p><textarea name="comment" placeholder="Comment on the post"></textarea></p>
+                            <p><input type="text" name="name" placeholder="Your name"/></p>
+                            <input type="submit" value="Comment" data-inline="true"/><br/><br/>
+                        </div>
+                        <ul data-role="listview">
+                        {% for comment in comments %}
+                            <li class="commentBlock">
+                                <p class="comment">{{ comment.comment }}</p>
+                                <p class="commentBy">on {{ comment.date|date:"D d M Y" }} by {{ comment.name }}</p>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </form>
             </div>
             <div class="footer" data-role="footer" data-position="fixed">
                 <div data-role=controlgroup data-type=horizontal>

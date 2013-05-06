@@ -55,7 +55,10 @@ including the comments
 def detail(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     comments = article.comments_set.all().order_by('-date')
-    return render(request, 'blog/details.html', {'article': article, 'comments': comments})
+    if isMobile(request):
+        return render(request, 'blog/details_m.html', {'article': article, 'comments': comments})
+    else:
+        return render(request, 'blog/details.html', {'article': article, 'comments': comments})
 
 
 """
