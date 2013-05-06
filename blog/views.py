@@ -36,6 +36,7 @@ def isMobile(request):
 
     return mobile_browser
 
+
 """
 The homepage view is rendered here
 """
@@ -92,16 +93,27 @@ def archive(request):
     for article in Article.objects.all():
         archive.add(article)
     archive.sort()
-    return render(request, 'blog/archive.html' , {'archive': archive})
+    if isMobile(request):
+        return render(request, 'blog/archive_m.html' , {'archive': archive})
+    else:
+        return render(request, 'blog/archive.html' , {'archive': archive})
+
 
 """
     The projects view is rendered using this function
 """
 def projects(request):
-    return render(request, 'blog/projects.html', {'projects': Project.objects.all()})
+    if isMobile(request):
+        return render(request, 'blog/projects_m.html', {'projects': Project.objects.all()})
+    else:
+        return render(request, 'blog/projects.html', {'projects': Project.objects.all()})
+
 
 """
     This view renders a dummy about page
 """
 def about(request):
-    return render(request, 'blog/about.html')
+    if isMobile(request):
+        return render(request, 'blog/about_m.html')
+    else:
+        return render(request, 'blog/about.html')
