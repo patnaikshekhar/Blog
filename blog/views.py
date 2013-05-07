@@ -41,12 +41,17 @@ def isMobile(request):
 The homepage view is rendered here
 """
 def index(request):
-    latest_articles = Article.objects.all().order_by('-date')[:3]
-    context = {'latest_articles': latest_articles}
+
     if isMobile(request):
-        return render(request, 'blog/index_m.html', context)
+        template_name = 'blog/index_m.html'
+        no_of_items = 10
     else:
-        return render(request, 'blog/index.html', context)
+        template_name = 'blog/index.html'
+        no_of_items = 3
+
+    latest_articles = Article.objects.all().order_by('-date')[:no_of_items]
+    context = {'latest_articles': latest_articles}
+    return render(request, template_name, context)
 
 
 """
